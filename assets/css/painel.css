@@ -1,0 +1,585 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-outer: #d6d3d1;
+    /* stone-300 */
+    --bg-main: #F3F3F1;
+    --text-primary: #0A0A0A;
+    --text-secondary: #6b7280;
+    /* gray-500 */
+    --text-tertiary: #9ca3af;
+    /* gray-400 */
+    --accent-blue: #2563eb;
+    /* blue-600 */
+    --font-inter: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-outer);
+    font-family: var(--font-inter);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-primary);
+}
+
+
+.main-app {
+    background-color: var(--bg-main);
+    width: 100%;
+    max-width: 1400px;
+    border-radius: 2.5rem;
+    /* 40px */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 85vh;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    position: relative;
+    z-index: 60;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 5px;
+    user-select: none;
+}
+
+.logo-bar {
+    width: 8px;
+    background-color: #000;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+}
+
+.logo-bar:nth-child(1) {
+    height: 24px;
+}
+
+.logo-bar:nth-child(2) {
+    height: 16px;
+    margin-top: 4px;
+}
+
+.logo-bar:nth-child(3) {
+    height: 20px;
+    margin-top: 2px;
+}
+
+.logo-group:hover .logo-bar:nth-child(1) {
+    height: 32px;
+}
+
+.logo-group:hover .logo-bar:nth-child(2) {
+    height: 24px;
+    margin-top: 0;
+}
+
+.logo-group:hover .logo-bar:nth-child(3) {
+    height: 28px;
+    margin-top: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    position: relative;
+    padding-bottom: 6px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    transition: width 0.3s ease-in-out;
+}
+
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.login-btn {
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+}
+
+.login-btn:hover {
+    color: #000;
+}
+
+.start-btn {
+    background-color: #1A1A1A;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.start-btn:hover {
+    background-color: #000;
+    transform: scale(1.05);
+}
+
+/*CONTEÚDO DA DASHBOARD (Primeira Dobra)*/
+.dashboard-content {
+    padding: 2.5rem 4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* --- Barra de Ferramentas (Busca e Botões) --- */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    position: relative;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.search-box i,
+.search-box svg {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    /* Garante que o clique passe pelo ícone e vá direto para o input */
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.8rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    font-family: var(--font-inter);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-box input:focus {
+    border-color: var(--text-tertiary);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #1A1A1A;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #000;
+    transform: scale(1.02);
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #fff;
+    color: var(--text-secondary);
+    padding: 0.75rem 1.2rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    color: #000;
+    border-color: #000;
+}
+
+.view-toggles {
+    display: flex;
+    gap: 0.25rem;
+    background-color: var(--border-color);
+    padding: 0.25rem;
+    border-radius: 9999px;
+}
+
+.view-btn {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.view-btn.active,
+.view-btn:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Lista de Produtos --- */
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.product-row {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    gap: 2rem;
+}
+
+.product-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 64px;
+    height: 64px;
+    background-color: #f8f9fa;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.product-image i {
+    color: var(--text-tertiary);
+}
+
+.product-info {
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.product-category {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.label-tiny {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    margin-bottom: 0.25rem;
+}
+
+.product-stats {
+    display: flex;
+    gap: 3rem;
+    min-width: 300px;
+}
+
+.stat-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+
+.btn-icon:hover {
+    color: #000;
+    background-color: var(--bg-main);
+}
+
+/* --- Rodapé / Paginação --- */
+.pagination-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.pagination-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.pagination-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* =========================================
+   MENU FLUTUANTE (DROPDOWN DE AÇÕES)
+   ========================================= */
+.action-menu-wrapper {
+    position: relative;
+    /* Serve de âncora para o menu flutuante */
+}
+
+.action-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 5px);
+    /* Fica logo abaixo do botão com 5px de margem */
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    z-index: 50;
+
+    /* Animação e estado inicial (Escondido) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+}
+
+/* Classe que o JavaScript vai adicionar para mostrar o menu */
+.action-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    font-family: var(--font-inter);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item svg,
+.dropdown-item i {
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+}
+
+.dropdown-item:hover {
+    background-color: var(--bg-main);
+    color: #000;
+}
+
+/* Estilo específico para o botão de Remover */
+.dropdown-item.danger:hover {
+    background-color: #fee2e2;
+    /* Fundo vermelhinho claro */
+    color: #dc2626;
+    /* Texto vermelho */
+}
+
+
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 2rem;
+    }
+
+    /* Configuração do Menu Sanduíche Oculto */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        gap: 1.5rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-main);
+        padding: 2rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        z-index: 50;
+    }
+
+    /* Classe de ativação disparada pelo JS */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .dashboard-content {
+        padding: 2rem;
+    }
+
+    .product-stats {
+        gap: 1.5rem;
+        min-width: auto;
+    }
+
+}
+
+@media (max-width: 640px) {
+    .navbar {
+        padding: 1.5rem;
+    }
+
+    .nav-actions {
+        gap: 1rem;
+    }
+
+    .start-btn {
+        padding: 0.6rem 1.2rem;
+    }
+
+    .dashboard-content {
+        padding: 1.5rem;
+    }
+
+    .product-row {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .product-info {
+        width: 100%;
+    }
+
+    .product-stats {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+    }
+
+    .search-box {
+        max-width: 100%;
+    }
+
+    .action-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

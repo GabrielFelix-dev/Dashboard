@@ -1,17 +1,16 @@
-
+/* =========================================
+   VARIÁVEIS DE COR (TEMA CLARO ÚNICO)
+   ========================================= */
 :root {
-   
     --bg-outer: #d6d3d1;
     --bg-main: #F3F3F1;
     --bg-card: #ffffff;
     --text-primary: #0A0A0A;
     --text-secondary: #6b7280;
     --text-tertiary: #9ca3af;
-    --accent-blue: #2563eb;
     --border-color: rgba(0, 0, 0, 0.08);
     --font-inter: 'Inter', sans-serif;
 }
-
 
 /* Reset Geral */
 * {
@@ -29,53 +28,20 @@ body {
     min-height: 100vh;
     padding: 20px;
     color: var(--text-primary);
-    transition: background-color 0.3s ease, color 0.3s ease;
-    position: relative;
 }
 
-/* Transição global */
-.login-card,
+/* Transição global para botões e inputs */
+.auth-card,
 input,
-.btn-secondary,
+.btn-submit,
 a {
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-
-.btn-icon {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 0.6rem;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease;
-}
-
-.btn-icon:hover {
-    color: var(--text-primary);
-    border-color: var(--text-primary);
-    transform: translateY(-2px);
-}
-
-#themeToggle .sun-icon {
-    display: none;
-}
-
-:root.dark-mode #themeToggle .moon-icon {
-    display: none;
-}
-
-:root.dark-mode #themeToggle .sun-icon {
-    display: block;
-}
-
-/*CONTAINER DO LOGIN*/
-.login-card {
+/* =========================================
+   CONTAINER DE AUTENTICAÇÃO
+   ========================================= */
+.auth-card {
     background-color: var(--bg-card);
     width: 100%;
     max-width: 420px;
@@ -85,7 +51,7 @@ a {
     border: 1px solid var(--border-color);
 }
 
-.login-header {
+.auth-header {
     text-align: center;
     margin-bottom: 2.5rem;
 }
@@ -117,7 +83,7 @@ a {
     margin-top: 1px;
 }
 
-.login-title {
+.auth-title {
     font-size: 1.75rem;
     font-weight: 600;
     letter-spacing: -0.03em;
@@ -125,13 +91,15 @@ a {
     margin-bottom: 0.5rem;
 }
 
-.login-subtitle {
+.auth-subtitle {
     font-size: 0.875rem;
     color: var(--text-secondary);
     line-height: 1.5;
 }
 
-/*FORMULÁRIO*/
+/* =========================================
+   FORMULÁRIO
+   ========================================= */
 .form-group {
     margin-bottom: 1.25rem;
     display: flex;
@@ -181,9 +149,13 @@ a {
     background-color: var(--bg-card);
 }
 
+.form-input::placeholder {
+    color: var(--text-tertiary);
+}
+
 .form-options {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 1.5rem;
     margin-bottom: 2rem;
@@ -205,14 +177,13 @@ a {
     cursor: pointer;
 }
 
-.forgot-password {
-    font-size: 0.8rem;
+.link-text {
     font-weight: 500;
     color: var(--text-primary);
     text-decoration: none;
 }
 
-.forgot-password:hover {
+.link-text:hover {
     text-decoration: underline;
 }
 
@@ -233,7 +204,6 @@ a {
     letter-spacing: 0.1em;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .btn-submit:hover {
@@ -242,32 +212,27 @@ a {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-.register-prompt {
+.switch-prompt {
     text-align: center;
     margin-top: 2rem;
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
 
-.register-prompt a {
+.switch-prompt a {
     font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
 }
 
-.register-prompt a:hover {
+.switch-prompt a:hover {
     text-decoration: underline;
 }
 
 /* Responsividade */
 @media (max-width: 480px) {
-    .login-card {
+    .auth-card {
         padding: 2.5rem 1.5rem;
         border-radius: 1.5rem;
-    }
-
-    .theme-toggle-wrapper {
-        top: 1rem;
-        right: 1rem;
     }
 }
