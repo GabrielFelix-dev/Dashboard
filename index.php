@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     require 'conn.php';
 ?>
 
@@ -14,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/sms.css">
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -41,7 +43,7 @@
                 <label class="form-label" for="email">E-mail</label>
                 <div class="input-wrapper">
                     <i data-lucide="mail"></i>
-                    <input type="email" id="email" class="form-input" placeholder="seu@email.com" required>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="seu@email.com" >
                 </div>
             </div>
 
@@ -49,7 +51,7 @@
                 <label class="form-label" for="password">Senha</label>
                 <div class="input-wrapper">
                     <i data-lucide="lock"></i>
-                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
+                    <input type="password" id="password" name="senha" class="form-input" placeholder="••••••••" >
                 </div>
             </div>
 
@@ -61,7 +63,7 @@
                 <a href="#" class="forgot-password">Esqueceu a senha?</a>
             </div>
 
-            <button type="submit" class="btn-submit">
+            <button name="login" type="submit" class="btn-submit">
                 Entrar <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
             </button>
 

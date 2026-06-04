@@ -1,6 +1,7 @@
 <?php
-session_start();
-include '../conn.php';
+require '../conn.php';
+include '../auth.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +15,10 @@ include '../conn.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <link rel="stylesheet" href="../assets/css/painel.css">
+    <link rel="stylesheet" href="../assets/css/sms.css">
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -23,9 +26,9 @@ include '../conn.php';
 
 <body>
 
-    
+
+    <?php include 'sms.php' ?>
     <main class="main-app">
-        <?php include 'sms.php'?>
         <!-- COMEÇO HEADER -->
         <header class="navbar">
             <div class="logo-group" id="logoToggle">
@@ -43,14 +46,14 @@ include '../conn.php';
 
             <div class="nav-actions">
                 <a href="#" class="login-btn"><i data-lucide="circle-user-round"></i> </a>
-                <a href="../index.php" class="start-btn">Sair</a>
+                <a href="logout.php" class="start-btn">Sair</a>
             </div>
         </header>
         <!-- FIM HEADER -->
 
         <!-- COMEÇO SECTION -->
         <section class="dashboard-content">
-
+            <!-- toobar -->
             <div class="toolbar">
                 <!-- barra de pesquisa -->
                 <div class="search-box">
@@ -68,120 +71,88 @@ include '../conn.php';
                 </div>
             </div>
 
+            <!-- LISTAGEM DE PRODUTOS -->
             <div class="product-list">
+                <?php
+                $usuario_id = $_SESSION['usuario_id'];
 
-                <div class="product-row">
-                    <div class="product-image"><i data-lucide="monitor"></i></div>
-                    <div class="product-info">
-                        <h3 class="product-name">Apple iMac 27"</h3>
-                        <div class="label-tiny">Categoria</div>
-                        <span class="product-category">PC/Desktop PC</span>
-                    </div>
-                    <div class="product-stats">
-                        <div class="stat-block">
-                            <span class="label-tiny">Preço</span>
-                            <span class="stat-value">$2999</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Estoque</span>
-                            <span class="stat-value">300</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Vendas</span>
-                            <span class="stat-value">466</span>
-                        </div>
-                    </div>
-                    <div class="action-menu-wrapper">
-                        <button class="btn-icon action-toggle"><i data-lucide="more-horizontal"></i></button>
+                $sql = "SELECT * FROM produto WHERE id_usuario_fk = $usuario_id";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
 
-                        <div class="action-dropdown">
-                            <button class="dropdown-item">
-                                <i data-lucide="eye"></i> Visualizar
-                            </button>
-                            <button class="dropdown-item">
-                                <i data-lucide="edit"></i> Editar
-                            </button>
-                            <button class="dropdown-item danger">
-                                <i data-lucide="trash-2"></i> Remover
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                <div class="product-row">
-                    <div class="product-image"><i data-lucide="gamepad-2"></i></div>
-                    <div class="product-info">
-                        <h3 class="product-name">Xbox Series S</h3>
-                        <div class="label-tiny">Categoria</div>
-                        <span class="product-category">Gaming/Console</span>
-                    </div>
-                    <div class="product-stats">
-                        <div class="stat-block">
-                            <span class="label-tiny">Preço</span>
-                            <span class="stat-value">$299</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Estoque</span>
-                            <span class="stat-value">56</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Vendas</span>
-                            <span class="stat-value">3040</span>
-                        </div>
-                    </div>
-                    <button class="btn-icon"><i data-lucide="more-horizontal"></i></button>
-                </div>
+                if (count($produtos) > 0) {
+                    foreach ($produtos as $produtos):
 
-                <div class="product-row">
-                    <div class="product-image"><i data-lucide="monitor-speaker"></i></div>
-                    <div class="product-info">
-                        <h3 class="product-name">Monitor BenQ EX2710Q</h3>
-                        <div class="label-tiny">Categoria</div>
-                        <span class="product-category">TV/Monitor</span>
-                    </div>
-                    <div class="product-stats">
-                        <div class="stat-block">
-                            <span class="label-tiny">Preço</span>
-                            <span class="stat-value">$499</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Estoque</span>
-                            <span class="stat-value">354</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Vendas</span>
-                            <span class="stat-value">76</span>
-                        </div>
-                    </div>
-                    <button class="btn-icon"><i data-lucide="more-horizontal"></i></button>
-                </div>
+                ?>
+                        <!-- teste <pre style="background: #fff; color: red; padding: 10px;">
+                            Caminho no banco: <?php var_dump($produtos['imagem_url']); ?>
+                        </pre> -->
 
-                <div class="product-row">
-                    <div class="product-image"><i data-lucide="smartphone"></i></div>
-                    <div class="product-info">
-                        <h3 class="product-name">Apple iPhone 14</h3>
-                        <div class="label-tiny">Categoria</div>
-                        <span class="product-category">Phone</span>
-                    </div>
-                    <div class="product-stats">
-                        <div class="stat-block">
-                            <span class="label-tiny">Preço</span>
-                            <span class="stat-value">$999</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Estoque</span>
-                            <span class="stat-value">1237</span>
-                        </div>
-                        <div class="stat-block">
-                            <span class="label-tiny">Vendas</span>
-                            <span class="stat-value">2000</span>
-                        </div>
-                    </div>
-                    <button class="btn-icon"><i data-lucide="more-horizontal"></i></button>
-                </div>
+                        <div class="product-row">
+                            <!-- IMAGEM -->
+                            <div class="product-image">
+                                <?php
+                                $caminho_corrigido = '../' . $produtos['imagem_url'];
+                                // Verifica se o campo de imagem não está vazio e se o arquivo existe no caminho corrigido
+                                if (!empty($produtos['imagem_url']) && file_exists($caminho_corrigido)):
+                                ?>
+                                    <img src="<?php echo htmlspecialchars($caminho_corrigido); ?>" alt="Imagem do Produto" style="max-width: 100%; object-fit: cover;">
+                                <?php else: ?>
+                                    <i class="fa-solid fa-image fa-3x" style="color: #cccccc;"></i>
+                                <?php endif; ?>
+                            </div>
 
+                            <!-- NOME E CATEGORIA -->
+                            <div class="product-info">
+                                <h3 class="product-name"><?php echo $produtos['nome_produto']; ?></h3>
+                                <div class="label-tiny">Categoria</div>
+                                <span class="product-category"><?php echo $produtos['categoria']; ?></span>
+                            </div>
+
+                            <!-- PREÇO, ESTOQUE E DESCRIÇÃO -->
+                            <div class="product-stats">
+                                <div class="stat-block">
+                                    <span class="label-tiny">Preço</span>
+                                    <span class="stat-value"><?php echo $produtos['preco']; ?></span>
+                                </div>
+                                <div class="stat-block">
+                                    <span class="label-tiny">Estoque</span>
+                                    <span class="stat-value"><?php echo $produtos['estoque']; ?></span>
+                                </div>
+                                <div class="stat-block">
+                                    <span class="label-tiny">Descrição</span>
+                                    <span class="stat-value"><?php echo $produtos['descricao']; ?></span>
+                                </div>
+
+                            </div>
+
+                            <!-- OPÇÕES (edit, view, remove) -->
+                            <div class="action-menu-wrapper">
+                                <button class="btn-icon action-toggle"><i data-lucide="more-horizontal"></i></button>
+
+                                <div class="action-dropdown">
+                                    <button class="dropdown-item">
+                                        <i data-lucide="eye"></i> Visualizar
+                                    </button>
+                                    <button class="dropdown-item">
+                                        <i data-lucide="edit"></i> Editar
+                                    </button>
+                                    <button class="dropdown-item danger">
+                                        <i data-lucide="trash-2"></i> Remover
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                <?php
+                    endforeach;
+                } else {
+                    echo "<p style='padding: 2rem; text-align: center; color: #666;'>Nenhum produto encontrado. Clique em 'Adicionar' para cadastrar seu primeiro produto.</p>";
+                }
+                ?>
             </div>
-
+            <!-- PAGINAS -->
             <div class="pagination-area">
                 <span class="pagination-text">Mostrando <strong>1</strong> a <strong>4</strong> de <strong>100</strong> registros</span>
                 <div class="pagination-controls">

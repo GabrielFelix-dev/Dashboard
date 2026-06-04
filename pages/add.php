@@ -1,5 +1,13 @@
-<?php 
-include '../conn.php'
+<?php
+require '../conn.php';
+include '../auth.php';
+
+// if (isset($_SESSION['usuario_id'])) {
+//     $_SESSION['sms'] =  "O ID do usuário logado é: " . $_SESSION['usuario_id'];
+// } else {
+//     $_SESSION['sms'] =  "Sem id" . $_SESSION['usuario_id'];
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -17,9 +25,12 @@ include '../conn.php'
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <link rel="stylesheet" href="../assets/css/add.css">
+    <link rel="stylesheet" href="../assets/css/sms.css">
+
 </head>
 
 <body>
+    <?php include 'sms.php' ?>
 
     <main class="main-container">
 
@@ -33,10 +44,11 @@ include '../conn.php'
             <h1 class="page-title">Adicionar Novo Produto</h1>
         </header>
 
-        <form class="product-form" action="../actions.php"  enctype="multipart/form-data" method="POST">
+        <form class="product-form" action="../actions.php" enctype="multipart/form-data" method="POST">
 
             <div class="form-grid">
 
+                <!-- adicionar imagem -->
                 <div class="form-section">
                     <label class="form-label">Imagem do Produto</label>
                     <div class="upload-area">
@@ -48,34 +60,37 @@ include '../conn.php'
 
                 <div class="form-section">
 
+                    <!-- NOME -->
                     <div class="form-group">
                         <label class="form-label" for="produtoNome">Nome do Produto</label>
-                        <input type="text" id="produtoNome" name="nome" class="form-input" placeholder="Ex: Apple iMac 27&quot;" required>
+                        <input type="text" id="produtoNome" name="nome_produto" class="form-input" placeholder="Ex: Apple iMac 27&quot;" required>
                     </div>
 
                     <div class="form-row">
+                        <!-- CATEGORIA -->
                         <div class="form-group" style="grid-column: span 2;">
                             <label class="form-label" for="categoria">Categoria</label>
                             <select name="categoria" id="categoria" class="form-input" required>
                                 <option value="" disabled selected>Selecione uma categoria...</option>
-                                <option value="pc">PC/Desktop PC</option>
-                                <option value="console">Gaming/Console</option>
-                                <option value="monitor">TV/Monitor</option>
-                                <option value="phone">Smartphone</option>
+                                <option value="PC/Desktop PC">PC/Desktop PC</option>
+                                <option value="Gaming/Console">Gaming/Console</option>
+                                <option value="TV/Monitor">TV/Monitor</option>
+                                <option value="Smartphone">Smartphone</option>
+                                <option value="Outro">Outro</option>
                             </select>
                         </div>
-
+                        <!-- PREÇO -->
                         <div class="form-group">
                             <label class="form-label" for="preco">Preço ($)</label>
-                            <input type="number" id="preco" name="preco" class="form-input" placeholder="0.00" step="0.01" required>
+                            <input type="number" id="preco" name="preco" class="form-input" placeholder="0.00" step="0.001" required>
                         </div>
-
+                        <!-- ESTOQUE -->
                         <div class="form-group">
                             <label class="form-label" for="estoque">Estoque</label>
                             <input type="number" id="estoque" name="estoque" class="form-input" placeholder="0" required>
                         </div>
                     </div>
-
+                    <!-- DESCRIÇÂO (opcional) -->
                     <div class="form-group">
                         <label class="form-label" for="descricao">Descrição</label>
                         <textarea id="descricao" name="descricao" class="form-input textarea" placeholder="Insira os detalhes e especificações do produto..."></textarea>
@@ -84,12 +99,13 @@ include '../conn.php'
                 </div>
             </div>
 
+            <!-- botões cancelar e cadastra -->
             <div class="form-actions">
                 <a href="painel.php">
                     <button type="button" class="btn-secondary">Cancelar</button>
-                </a>    
-                <button type="submit" name="salvar" class="btn-primary">
-                    <i data-lucide="save" style="width: 16px; height: 16px;"></i> Salvar Produto
+                </a>
+                <button type="submit" name="cadastraProduto" class="btn-primary">
+                    <i data-lucide="save" style="width: 16px; height: 16px;"></i> Cadastrar Produto
                 </button>
             </div>
 

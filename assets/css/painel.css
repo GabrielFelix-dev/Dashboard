@@ -332,6 +332,7 @@ body {
 .product-image {
     width: 64px;
     height: 64px;
+
     background-color: #f8f9fa;
     border-radius: 1rem;
     display: flex;
@@ -342,7 +343,17 @@ body {
     border: 1px solid var(--border-color);
 }
 
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Garante que a foto preencha o quadrado sem distorcer */
+    object-position: center;
+}
+
 .product-image i {
+    font-size: 1.5rem;
+    /* Define um tamanho adequado para o ícone de 64px */
     color: var(--text-tertiary);
 }
 
@@ -374,13 +385,36 @@ body {
 
 .product-stats {
     display: flex;
-    gap: 3rem;
-    min-width: 300px;
+    gap: 2rem; 
+    width: 330px; 
+    margin-left: auto; 
 }
 
 .stat-block {
     display: flex;
     flex-direction: column;
+}
+
+
+.stat-block:nth-child(1) {
+    width: 80px; 
+}
+
+
+.stat-block:nth-child(2) {
+    width: 80px; 
+}
+
+.stat-block:last-child {
+    flex: 1; 
+    min-width: 0; 
+}
+
+.stat-block:last-child .stat-value {
+    display: block; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 }
 
 .stat-value {
@@ -411,6 +445,7 @@ body {
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .pagination-text {
@@ -426,6 +461,7 @@ body {
 .pagination-controls {
     display: flex;
     gap: 0.5rem;
+    padding-bottom: 20px;
 }
 
 /* =========================================
