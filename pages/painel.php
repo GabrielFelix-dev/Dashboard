@@ -19,8 +19,11 @@ include '../auth.php';
 
     <link rel="stylesheet" href="../assets/css/painel.css">
     <link rel="stylesheet" href="../assets/css/sms.css">
+    <link rel="stylesheet" href="../assets/css/view.css">
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../assets/js/painel.js" defer></script>
+    <script src="../assets/js/view.js" defer></script>
 
 </head>
 
@@ -76,8 +79,19 @@ include '../auth.php';
                 <?php
                 $usuario_id = $_SESSION['usuario_id'];
 
-                $sql = "SELECT * FROM produto WHERE id_usuario_fk = $usuario_id";
+                // calcular inicio visualização
+                $itens_por_pagina = 4;
+                $pagina_atual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+                $inicio = ($pagina_atual - 1) * $itens_por_pagina;
+
+                $sql = "SELECT * FROM produto WHERE id_usuario_fk = :usuario_id ORDER BY id_produto DESC LIMIT :inicio, :itens_por_pagina";
+
                 $stmt = $conn->prepare($sql);
+
+                $stmt->bindParam("usuario_id", $usuario_id);
+                $stmt->bindParam("inicio", $inicio, PDO::PARAM_INT);
+                $stmt->bindParam("itens_por_pagina", $itens_por_pagina, PDO::PARAM_INT);
+
                 $stmt->execute();
 
                 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -86,22 +100,11 @@ include '../auth.php';
                     foreach ($produtos as $produtos):
 
                 ?>
-                        <!-- teste <pre style="background: #fff; color: red; padding: 10px;">
-                            Caminho no banco: <?php var_dump($produtos['imagem_url']); ?>
-                        </pre> -->
 
                         <div class="product-row">
                             <!-- IMAGEM -->
                             <div class="product-image">
-                                <?php
-                                $caminho_corrigido = '../' . $produtos['imagem_url'];
-                                // Verifica se o campo de imagem não está vazio e se o arquivo existe no caminho corrigido
-                                if (!empty($produtos['imagem_url']) && file_exists($caminho_corrigido)):
-                                ?>
-                                    <img src="<?php echo htmlspecialchars($caminho_corrigido); ?>" alt="Imagem do Produto" style="max-width: 100%; object-fit: cover;">
-                                <?php else: ?>
-                                    <i class="fa-solid fa-image fa-3x" style="color: #cccccc;"></i>
-                                <?php endif; ?>
+                                <i data-lucide="image"></i>
                             </div>
 
                             <!-- NOME E CATEGORIA -->
@@ -115,11 +118,11 @@ include '../auth.php';
                             <div class="product-stats">
                                 <div class="stat-block">
                                     <span class="label-tiny">Preço</span>
-                                    <span class="stat-value"><?php echo $produtos['preco']; ?></span>
+                                    <span class="stat-value">R$<?php echo $produtos['preco']; ?></span>
                                 </div>
                                 <div class="stat-block">
                                     <span class="label-tiny">Estoque</span>
-                                    <span class="stat-value"><?php echo $produtos['estoque']; ?></span>
+                                    <span class="stat-value"><?php echo $produtos['estoque']; ?> und</span>
                                 </div>
                                 <div class="stat-block">
                                     <span class="label-tiny">Descrição</span>
@@ -133,15 +136,28 @@ include '../auth.php';
                                 <button class="btn-icon action-toggle"><i data-lucide="more-horizontal"></i></button>
 
                                 <div class="action-dropdown">
-                                    <button class="dropdown-item">
+
+                                    <!-- BOTÃO VISUALIZAR -->
+                                    <button class="dropdown-item btn-view"
+                                        data-id="<?= $produtos['id_produto'] ?>"
+                                        data-nome="<?= htmlspecialchars($produtos['nome_produto']) ?>"
+                                        data-preco="<?= $produtos['preco'] ?>"
+                                        data-estoque="<?= $produtos['estoque'] ?>"
+                                        data-categoria="<?= htmlspecialchars($produtos['categoria']) ?>"
+                                        data-descricao="<?= htmlspecialchars($produtos['descricao']) ?>">
                                         <i data-lucide="eye"></i> Visualizar
                                     </button>
-                                    <button class="dropdown-item">
+
+                                    <!-- BOTÃO EDITAR -->
+                                    <a href="edit.php?id_produto=<?= $produtos['id_produto'] ?>" class="dropdown-item">
                                         <i data-lucide="edit"></i> Editar
-                                    </button>
-                                    <button class="dropdown-item danger">
+                                    </a>
+
+                                    <!-- BOTÃO REMOVER -->
+                                    <a href="remove.php?id_produto=<?= $produtos['id_produto'] ?>" class="dropdown-item danger">
                                         <i data-lucide="trash-2"></i> Remover
-                                    </button>
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -153,11 +169,46 @@ include '../auth.php';
                 ?>
             </div>
             <!-- PAGINAS -->
+            <?php
+            // calcular total de produtos para paginação
+            $sql_total = "SELECT COUNT(*) FROM produto WHERE id_usuario_fk = :usuario_id";
+            $stmt_total = $conn->prepare($sql_total);
+            $stmt_total->bindParam("usuario_id", $_SESSION['usuario_id'], PDO::PARAM_INT);
+            $stmt_total->execute();
+            $total_produtos = $stmt_total->fetchColumn();
+
+            $total_paginas = ceil($total_produtos / $itens_por_pagina);
+            ?>
+            <!-- área de paginação -->
             <div class="pagination-area">
-                <span class="pagination-text">Mostrando <strong>1</strong> a <strong>4</strong> de <strong>100</strong> registros</span>
+                <span class="pagination-text">
+                    Mostrando <strong><?php echo $total_produtos > 0 ? $inicio + 1 : 0; ?></strong> a
+                    <strong><?php echo min($inicio + $itens_por_pagina, $total_produtos); ?></strong> de
+                    <strong><?php echo $total_produtos; ?></strong> registros
+                </span>
+
                 <div class="pagination-controls">
-                    <button class="btn-secondary" style="padding: 0.5rem 1rem;">Anterior</button>
-                    <button class="btn-secondary" style="padding: 0.5rem 1rem;">Próximo</button>
+
+                    <?php if ($pagina_atual > 1): ?>
+                        <a href="?pagina=<?php echo $pagina_atual - 1; ?>" class="btn-secondary" style="padding: 0.5rem 1rem; text-decoration: none;">Anterior</a>
+                    <?php else: ?>
+                        <button class="btn-secondary" style="padding: 0.5rem 1rem;" disabled>Anterior</button>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                        <?php if ($i == $pagina_atual): ?>
+                            <button class="btn-primary" style="padding: 0.5rem 1rem;" disabled><?php echo $i; ?></button>
+                        <?php else: ?>
+                            <a href="?pagina=<?php echo $i; ?>" class="btn-secondary" style="padding: 0.5rem 1rem; text-decoration: none;"><?php echo $i; ?></a>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+
+                    <?php if ($pagina_atual < $total_paginas): ?>
+                        <a href="?pagina=<?php echo $pagina_atual + 1; ?>" class="btn-secondary" style="padding: 0.5rem 1rem; text-decoration: none;">Próximo</a>
+                    <?php else: ?>
+                        <button class="btn-secondary" style="padding: 0.5rem 1rem;" disabled>Próximo</button>
+                    <?php endif; ?>
+
                 </div>
             </div>
 
@@ -166,49 +217,8 @@ include '../auth.php';
 
     </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const logoToggle = document.getElementById('logoToggle');
-            const navMenu = document.getElementById('navMenu');
+    <?php include 'view.php'; ?>
 
-            logoToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-        });
-
-        lucide.createIcons();
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Pega todos os botões que abrem o menu de ações
-            const toggleButtons = document.querySelectorAll('.action-toggle');
-
-            toggleButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    // Impede que o clique se propague e ative o fechamento global imediatamente
-                    event.stopPropagation();
-
-                    const dropdown = button.nextElementSibling; // Pega a div .action-dropdown logo abaixo do botão
-
-                    // Fecha todos os outros menus antes de abrir este (para não ficar com vários abertos)
-                    document.querySelectorAll('.action-dropdown.show').forEach(menu => {
-                        if (menu !== dropdown) {
-                            menu.classList.remove('show');
-                        }
-                    });
-
-                    // Alterna a visibilidade do menu clicado
-                    dropdown.classList.toggle('show');
-                });
-            });
-
-            // Fecha o menu se o usuário clicar em qualquer outro lugar da tela
-            document.addEventListener('click', (event) => {
-                document.querySelectorAll('.action-dropdown.show').forEach(menu => {
-                    menu.classList.remove('show');
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

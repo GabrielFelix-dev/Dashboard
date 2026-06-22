@@ -48,13 +48,13 @@ include '../auth.php';
 
             <div class="form-grid">
 
-                <!-- adicionar imagem -->
+                <!-- imagem -->
                 <div class="form-section">
                     <label class="form-label">Imagem do Produto</label>
                     <div class="upload-area">
                         <i data-lucide="image-plus"></i>
                         <span>Arraste uma imagem ou clique para fazer upload</span>
-                        <input name="imagem_produto" type="file" accept="image/*" class="file-input">
+                        
                     </div>
                 </div>
 

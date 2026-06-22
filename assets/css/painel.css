@@ -516,6 +516,7 @@ body {
     color: var(--text-secondary);
     cursor: pointer;
     text-align: left;
+    text-decoration: none;
     transition: all 0.2s ease;
 }
 

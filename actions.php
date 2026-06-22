@@ -79,37 +79,8 @@ if (isset($_POST['cadastraProduto'])) {
     $imagem_url = null;
     $usuario_id = $_SESSION['usuario_id'];
 
-    // Verifica se o arquivo foi enviado e se não houve erros no upload
-    if (isset($_FILES['imagem_produto']) && $_FILES['imagem_produto']['error'] === UPLOAD_ERR_OK) {
 
-        // Pega a extensão do arquivo (ex: jpg, png) e converte para minúsculo
-        $extensao = strtolower(pathinfo($_FILES['imagem_produto']['name'], PATHINFO_EXTENSION));
-
-        // Define quais formatos são permitidos por segurança
-        $extensoes_permitidas = ['jpg', 'jpeg', 'png', 'webp'];
-
-        if (in_array($extensao, $extensoes_permitidas)) {
-
-            // Gera um nome único e aleatório para a imagem (Evita substituir arquivos com o mesmo nome)
-            $novo_nome = uniqid('produto_') . '.' . $extensao;
-
-            // Define a pasta onde a imagem será salva
-            $diretorio_destino = 'uploads/';
-            $caminho_completo = $diretorio_destino . $novo_nome;
-
-            // Move o arquivo da memória temporária do servidor para a pasta definitiva
-            if (move_uploaded_file($_FILES['imagem_produto']['tmp_name'], $caminho_completo)) {
-                // Sucesso! A variável que vai pro banco de dados recebe o caminho do arquivo
-                $imagem_url = $caminho_completo;
-            } else {
-                die("Erro ao salvar a imagem na pasta do servidor.");
-            }
-        } else {
-            $_SESSION['sms'] = "Formato de imagem inválido. Use apenas JPG, PNG ou WEBP.";
-        }
-    }
-
-    $sql = "INSERT INTO produto (nome_produto, preco, estoque, categoria, descricao, imagem_url, id_usuario_fk ) VALUES (:nome_produto, :preco, :estoque, :categoria, :descricao, :imagem_url, :usuario_id)";
+    $sql = "INSERT INTO produto (nome_produto, preco, estoque, categoria, descricao, id_usuario_fk ) VALUES (:nome_produto, :preco, :estoque, :categoria, :descricao, :usuario_id)";
 
     $stmt = $conn->prepare($sql);
 
@@ -118,7 +89,6 @@ if (isset($_POST['cadastraProduto'])) {
     $stmt->bindParam(':estoque', $estoque, PDO::PARAM_INT);
     $stmt->bindParam(':categoria', $categoria);
     $stmt->bindParam(':descricao', $descricao);
-    $stmt->bindParam(':imagem_url', $imagem_url);
     $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
@@ -130,10 +100,71 @@ if (isset($_POST['cadastraProduto'])) {
     }
 }
 
+if (isset($_POST['editProduto'])) {
+
+    $id_produto = $_SESSION['id_produto'];
+
+    $nome_produto = trim($_POST['nome_produto']);
+    $preco = $_POST['preco'];
+    $estoque = (int)$_POST['estoque'];
+    $categoria = trim($_POST['categoria']);
+    $descricao = trim($_POST['descricao']);
+    $usuario_id = $_SESSION['usuario_id'];
+
+    $sql = "UPDATE produto SET nome_produto = :nome_produto, preco = :preco, estoque = :estoque, categoria = :categoria, descricao = :descricao, id_usuario_fk = :usuario_id WHERE id_produto = :id_produto";
+
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindParam(':id_produto', $id_produto, PDO::PARAM_INT);
+    $stmt->bindParam(':nome_produto', $nome_produto);
+    $stmt->bindParam(':preco', $preco);
+    $stmt->bindParam(':estoque', $estoque, PDO::PARAM_INT);
+    $stmt->bindParam(':categoria', $categoria);
+    $stmt->bindParam(':descricao', $descricao);
+    $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+
+
+    if ($stmt->execute()) {
+        $_SESSION['sms'] = "Produto editado com sucesso!";
+        header("Location: pages/painel.php");
+        exit();
+    } else {
+        $_SESSION['sms'] = "Erro ao editar!";
+    }
+}
+
+if (isset($_POST['removeProduto'])) {
+
+    $id_produto = $_SESSION['id_produto'];
+
+    $sql = "DELETE FROM produto WHERE id_produto = :id_produto";
+    
+    $stmt = $conn->prepare($sql);
+    
+    $stmt->bindParam(':id_produto', $id_produto, PDO::PARAM_INT);
+    
+    // echo $sql;
+    // //--- INÍCIO DO MODO DEBUG ---
+    // echo "<pre>"; // A tag <pre> do HTML deixa o texto formatado e fácil de ler
+    // var_dump($_POST); // Mostra tudo o que veio do formulário
+    // echo "</pre>";
+    // die("O script parou aqui para debug!"); // Mata a execução para o redirecionamento não acontecer
+    // // --- FIM DO MODO DEBUG ---
+
+
+    if ($stmt->execute()) {
+        $_SESSION['sms'] = "Produto removido com sucesso!";
+        header("Location: pages/painel.php");
+        exit();
+    } else {
+        $_SESSION['sms'] = "Erro ao remover!";
+    }
+}
+
 // --- INÍCIO DO MODO DEBUG ---
 //echo "<pre>"; // A tag <pre> do HTML deixa o texto formatado e fácil de ler
 //var_dump($_POST); // Mostra tudo o que veio do formulário
 //echo "</pre>";
 //die("O script parou aqui para debug!"); // Mata a execução para o redirecionamento não acontecer
 // --- FIM DO MODO DEBUG ---
-?>
