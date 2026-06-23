@@ -263,6 +263,19 @@ select.form-input {
 .btn-secondary:hover {
     background-color: var(--bg-main);
 }
+/* Anotações */
+/* Linha para formulários com 3 colunas iguais */
+.form-row-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .form-row-3 {
+        grid-template-columns: 1fr;
+    }
+}
 
 /*RESPONSIVIDADE*/
 @media (max-width: 768px) {

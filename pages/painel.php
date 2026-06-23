@@ -43,8 +43,6 @@ include '../auth.php';
             <nav class="nav-links" id="navMenu">
                 <a href="#" target="_self">Produtos</a>
                 <a href="#" target="_self">Anotações</a>
-                <a href="#" target="_self">Relatórios</a>
-                <a href="#" target="_self">Configurações</a>
             </nav>
 
             <div class="nav-actions">
@@ -74,7 +72,7 @@ include '../auth.php';
                 </div>
             </div>
 
-            <!-- LISTAGEM DE PRODUTOS -->
+            <!-- INICIO LISTAGEM DE PRODUTOS -->
             <div class="product-list">
                 <?php
                 $usuario_id = $_SESSION['usuario_id'];
@@ -211,6 +209,92 @@ include '../auth.php';
 
                 </div>
             </div>
+            <!-- FIM LISTAGEM DE PRODUTOS -->
+
+
+            <!-- INICIO ANOTAÇÕES -->
+            <div class="notes-area">
+                <!-- toobar -->
+                <div class="toolbar">
+                    <!-- pesquisa -->
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Pesquisar nas anotações...">
+                    </div>
+                    <!-- Adicionar e filtro -->
+                    <div class="action-buttons">
+                        <a href="addAnotacao.php">
+                            <button class="btn-primary">
+                                <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Nova Anotação
+                            </button>
+                        </a>
+                        <button class="btn-secondary">
+                            <i data-lucide="filter" style="width: 14px; height: 14px;"></i> Etiquetas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARDS Anotações -->
+                <div class="notes-grid">
+
+                    <?php
+
+                    $usuario_id = $_SESSION["usuario_id"];
+
+                    $sql = "SELECT * FROM anotacoes WHERE id_usuario_fk = :usuario_id ";
+
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bindParam(":usuario_id", $usuario_id);
+                    $stmt->execute();
+
+                    $anotacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    if (count($anotacoes) > 0) {
+                        foreach ($anotacoes as $anotacao):
+                    ?>
+
+                            <div class="note-card">
+                                <div class="note-header">
+                                    <div class="note-title-group">
+                                        <h3 class="note-title"><?php echo $anotacao['titulo'] ?></h3>
+                                        <span class="note-meta"><?php echo $anotacao['data_publicacao'], " • ", $anotacao['tipo'] ?></span>
+                                    </div>
+
+                                    <!-- AÇÕES -->
+                                    <div class="action-menu-wrapper">
+                                        <button class="btn-icon action-toggle"><i data-lucide="more-horizontal"></i></button>
+                                        <div class="action-dropdown">
+                                            <button class="dropdown-item"><i data-lucide="edit"></i> Editar</button>
+                                            <!-- REMOVER -->
+                                            <a href="removeAnotacao.php?id_anotacao=<?= $anotacao['id_anotacao'] ?>" style="text-decoration: none;">
+                                                <button class="dropdown-item danger"><i data-lucide="trash-2"></i> Excluir</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p class="note-body"><?php echo $anotacao['descricao'] ?></p>
+
+                                <div class="note-tags">
+                                    <span class="tag tag-blue"><?php echo $anotacao['tag'] ?></span>
+                                </div>
+                            </div>
+
+                    <?php
+                        endforeach;
+                    } else {
+                        echo "<p style='padding: 2rem; text-align: center; color: #666;'>Nenhuma anotação encontrada. Clique em 'Nova Anotação' para cadastrar.</p>";
+                    }
+                    ?>
+
+
+
+                </div>
+
+            </div>
+            <!-- INICIO ANOTAÇÕES -->
+
+
 
         </section>
         <!-- FIM SECTION -->

@@ -385,9 +385,9 @@ body {
 
 .product-stats {
     display: flex;
-    gap: 2rem; 
-    width: 330px; 
-    margin-left: auto; 
+    gap: 2rem;
+    width: 330px;
+    margin-left: auto;
 }
 
 .stat-block {
@@ -397,24 +397,24 @@ body {
 
 
 .stat-block:nth-child(1) {
-    width: 80px; 
+    width: 80px;
 }
 
 
 .stat-block:nth-child(2) {
-    width: 80px; 
+    width: 80px;
 }
 
 .stat-block:last-child {
-    flex: 1; 
-    min-width: 0; 
+    flex: 1;
+    min-width: 0;
 }
 
 .stat-block:last-child .stat-value {
-    display: block; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .stat-value {
@@ -540,6 +540,124 @@ body {
     /* Texto vermelho */
 }
 
+/* =========================================
+   ANOTAÇÕES (NOTES GRID & CARDS)
+   ========================================= */
+
+.notes-area {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+/* O Grid que organiza os cards */
+.notes-grid {
+    display: grid;
+    /* Faz os cards se adaptarem, com tamanho mínimo de 300px */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+    /* Impede que os cards estiquem verticalmente sem necessidade */
+}
+
+/* O Card Individual */
+.note-card {
+    background-color: var(--bg-card, #ffffff);
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.note-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho do Card (Título + Botão de Opções) */
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.note-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.note-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary, #0A0A0A);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+.note-meta {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-tertiary, #9ca3af);
+}
+
+/* Corpo do texto da anotação */
+.note-body {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #6b7280);
+    line-height: 1.6;
+    /* Limita o texto a 5 linhas e coloca "..." se passar disso */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Sistema de Etiquetas (Tags) no rodapé do card */
+.note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color, rgba(0, 0, 0, 0.05));
+}
+
+.tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+}
+
+/* Cores das Etiquetas */
+.tag-gray {
+    background-color: var(--bg-main, #F3F3F1);
+    color: var(--text-secondary, #6b7280);
+}
+
+.tag-blue {
+    background-color: #dbeafe;
+    /* blue-100 */
+    color: #1d4ed8;
+    /* blue-700 */
+}
+
+.tag-green {
+    background-color: #dcfce3;
+    /* green-100 */
+    color: #15803d;
+    /* green-700 */
+}
 
 @media (max-width: 1024px) {
     .navbar {

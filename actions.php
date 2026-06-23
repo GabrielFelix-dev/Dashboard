@@ -2,6 +2,7 @@
 session_start();
 require 'conn.php';
 
+// Usuário
 if (isset($_POST['criar_usuario'])) {
 
     $nome = trim($_POST['nome']);
@@ -69,6 +70,7 @@ if (isset($_POST['login'])) {
     }
 }
 
+// CRUD Produto
 if (isset($_POST['cadastraProduto'])) {
 
     $nome_produto = trim($_POST['nome_produto']);
@@ -139,22 +141,62 @@ if (isset($_POST['removeProduto'])) {
     $id_produto = $_SESSION['id_produto'];
 
     $sql = "DELETE FROM produto WHERE id_produto = :id_produto";
-    
-    $stmt = $conn->prepare($sql);
-    
-    $stmt->bindParam(':id_produto', $id_produto, PDO::PARAM_INT);
-    
-    // echo $sql;
-    // //--- INÍCIO DO MODO DEBUG ---
-    // echo "<pre>"; // A tag <pre> do HTML deixa o texto formatado e fácil de ler
-    // var_dump($_POST); // Mostra tudo o que veio do formulário
-    // echo "</pre>";
-    // die("O script parou aqui para debug!"); // Mata a execução para o redirecionamento não acontecer
-    // // --- FIM DO MODO DEBUG ---
 
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindParam(':id_produto', $id_produto, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
         $_SESSION['sms'] = "Produto removido com sucesso!";
+        header("Location: pages/painel.php");
+        exit();
+    } else {
+        $_SESSION['sms'] = "Erro ao remover!";
+    }
+}
+
+// CRUD Anotações
+if (isset($_POST['cadastrarAnotacao'])) {
+
+    $titulo = trim($_POST['titulo']);
+    $data_publicacao = $_POST['data_publicacao'];
+    $tipo = trim($_POST['tipo']);
+    $tag = trim($_POST['tag']);
+    $descricao = trim($_POST['descricao']);
+    $id_usuario = $_SESSION['usuario_id'];
+
+    $sql = "INSERT INTO anotacoes (titulo, data_publicacao, tipo, tag, descricao, id_usuario_fk) VALUES (:titulo, :data_publicacao, :tipo, :tag, :descricao, :id_usuario)";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindParam(':titulo', $titulo);
+    $stmt->bindParam(':data_publicacao', $data_publicacao);
+    $stmt->bindParam(':tipo', $tipo);
+    $stmt->bindParam(':tag', $tag);
+    $stmt->bindParam(':descricao', $descricao);
+    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        $_SESSION['sms'] = "Anotação cadastrada com sucesso!";
+        header("Location: pages/painel.php");
+        exit();
+    } else {
+        $_SESSION['sms'] = "Erro ao cadastrar anotação!";
+    }
+}
+
+if (isset($_POST['removerAnotacao'])) {
+
+    $id_anotacao = $_SESSION['id_anotacao'];
+
+    $sql = "DELETE FROM anotacoes WHERE id_anotacao = :id_anotacao";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindParam(':id_anotacao', $id_anotacao, PDO::PARAM_INT);
+    
+    if ($stmt->execute()) {
+        $_SESSION['sms'] = "Anotação removida com sucesso!";
         header("Location: pages/painel.php");
         exit();
     } else {

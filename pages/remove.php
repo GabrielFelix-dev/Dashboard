@@ -61,7 +61,7 @@ include '../auth.php';
             $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if (count($produtos) > 0) {
-                
+
                 foreach ($produtos as $produto):
             ?>
 
@@ -86,11 +86,12 @@ include '../auth.php';
                                 <div class="form-group" style="grid-column: span 2;">
                                     <label class="form-label" for="categoria">Categoria</label>
                                     <select name="categoria" id="categoria" class="form-input" disabled>
-                                        <option value="PC/Desktop PC" <?= ($produto['categoria'] == 'PC/Desktop PC') ? 'selected' : '' ?>>PC/Desktop PC</option>
-                                        <option value="Gaming/Console" <?= ($produto['categoria'] == 'Gaming/Console') ? 'selected' : '' ?>>Gaming/Console</option>
-                                        <option value="TV/Monitor" <?= ($produto['categoria'] == 'TV/Monitor') ? 'selected' : '' ?>>TV/Monitor</option>
-                                        <option value="Smartphone" <?= ($produto['categoria'] == 'Smartphone') ? 'selected' : '' ?>>Smartphone</option>
-                                        <option value="Outro" <?= ($produto['categoria'] == 'Outro') ? 'selected' : '' ?>>Outro</option>
+                                        <option value="" selected><?= htmlspecialchars($produto['categoria']) ?></option>
+                                        <option value="PC/Desktop PC">PC/Desktop PC</option>
+                                        <option value="Gaming/Console">Gaming/Console</option>
+                                        <option value="TV/Monitor">TV/Monitor</option>
+                                        <option value="Smartphone">Smartphone</option>
+                                        <option value="Outro">Outro</option>
                                     </select>
                                 </div>
 
@@ -115,7 +116,7 @@ include '../auth.php';
             <?php
                 endforeach;
             } else {
-                echo "<p style='padding: 2rem; text-align: center; color: #666;'>Produto não encontrado ou sem permissão.</p>";
+                $_SESSION['sms'] = "Produto não encontrado";
             }
             ?>
 
