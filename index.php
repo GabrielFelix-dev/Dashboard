@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Dashboard</title>
+    <title>Login</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,7 +70,7 @@
         </form>
 
         <p class="register-prompt">
-            Ainda não tem uma conta? <a href="pages/criarUsuario.php">Cadastre-se</a>
+            Ainda não tem uma conta? <a href="pages/usuario/criarUsuario.php">Cadastre-se</a>
         </p>
 
     </main>

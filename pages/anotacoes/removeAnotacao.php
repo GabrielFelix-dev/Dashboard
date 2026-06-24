@@ -1,7 +1,7 @@
 <?php
 
-require '../conn.php';
-include '../auth.php';
+require('../../conn.php');
+require('../../auth.php');
 
 ?>
 
@@ -12,7 +12,7 @@ include '../auth.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Anotação - Unihub</title>
+    <title>Remover Anotação</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,8 +20,8 @@ include '../auth.php';
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="../assets/css/add.css">
-    <link rel="stylesheet" href="../assets/css/sms.css">
+    <link rel="stylesheet" href="../../assets/css/add.css">
+    <link rel="stylesheet" href="../../assets/css/sms.css">
 </head>
 
 <body>
@@ -29,21 +29,17 @@ include '../auth.php';
     <main class="main-container">
 
         <header class="page-header">
-            <a href="painel.php" class="btn-icon-text" style="text-decoration: none;">
+            <a href="../painel.php" class="btn-icon-text" style="text-decoration: none;">
                 <i data-lucide="arrow-left"></i> Voltar para Anotações
             </a>
             <h1 class="page-title">Tem certeza que deseja remover esta anotação?</h1>
         </header>
 
-        <form class="product-form" action="../actions.php" method="POST">
+        <form class="product-form" action="../../actions.php" method="POST">
 
             <div class="form-section">
 
                 <?php
-
-                if (isset($_GET['id_anotacao'])) {
-                    $_SESSION['id_anotacao'] = (int)$_GET['id_anotacao'];
-                }
 
                 $id_anotacao = $_GET['id_anotacao'];
                 $usuario_id = $_SESSION['usuario_id'];
@@ -77,10 +73,10 @@ include '../auth.php';
                                 <label class="form-label" for="tipo">Tipo</label>
                                 <select id="tipo" name="tipo" class="form-input" disabled>
                                     <option value="" selected><?= htmlspecialchars($anotacao['tipo']) ?></option>
-                                    <option value="geral">Geral</option>
-                                    <option value="academico">Estoque</option>
-                                    <option value="projeto">Comercial</option>
-                                    <option value="projeto">Problema/Aviso</option>
+                                    <option value="Geral">Geral</option>
+                                    <option value="Academico">Estoque</option>
+                                    <option value="Projeto">Comercial</option>
+                                    <option value="Problema/Aviso">Problema/Aviso</option>
                                 </select>
                             </div>
 
@@ -103,7 +99,6 @@ include '../auth.php';
             </div>
 
             <div class="form-actions">
-                <button type="button" class="btn-secondary">Cancelar</button>
                 <button type="submit" name="removerAnotacao" class="btn-primary" style="background-color:red">
                     <i data-lucide="save" style="width: 16px; height: 16px;"></i> Remover Anotação
                 </button>

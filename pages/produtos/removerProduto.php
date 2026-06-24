@@ -1,12 +1,6 @@
 <?php
-require '../conn.php';
-include '../auth.php';
-
-// if (isset($_SESSION['usuario_id'])) {
-//     $_SESSION['sms'] =  "O ID do usuário logado é: " . $_SESSION['usuario_id'];
-// } else {
-//     $_SESSION['sms'] =  "Sem id" . $_SESSION['usuario_id'];
-// }
+require('../../conn.php');
+require('../../auth.php');
 
 ?>
 
@@ -16,7 +10,7 @@ include '../auth.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Produto</title>
+    <title>Remover Produto</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,32 +18,28 @@ include '../auth.php';
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="../assets/css/remove.css">
-    <link rel="stylesheet" href="../assets/css/sms.css">
+    <link rel="stylesheet" href="../../assets/css/remove.css">
+    <link rel="stylesheet" href="../../assets/css/sms.css">
 
 </head>
 
 <body>
-    <?php include 'sms.php' ?>
+    <?php include '../sms.php' ?>
 
     <main class="main-container">
         <header class="page-header">
-            <a href="painel.php" class="btn-icon-text" style="text-decoration: none;">
+            <a href="../painel.php" class="btn-icon-text" style="text-decoration: none;">
                 <i data-lucide="arrow-left"></i> Voltar para Produtos
             </a>
 
             <h1 class="page-title">Tem certeza que deseja remover este produto?</h1>
         </header>
 
-        <form class="product-form" action="../actions.php" enctype="multipart/form-data" method="POST">
+        <form class="product-form" action="../../actions.php" enctype="multipart/form-data" method="POST">
 
             <?php
-            // É boa prática checar se o ID veio na URL
-            if (isset($_GET['id_produto'])) {
-                $_SESSION['id_produto'] = (int)$_GET['id_produto'];
-            }
-
-            $id_produto = $_SESSION['id_produto'];
+            
+            $id_produto = $_GET['id_produto'];
             $usuario_id = $_SESSION['usuario_id'];
 
             $sql = "SELECT * FROM produto WHERE id_produto = :id_produto AND id_usuario_fk = :usuario_id";
@@ -121,10 +111,10 @@ include '../auth.php';
             ?>
 
             <div class="form-actions">
-                <a href="painel.php" style="text-decoration: none;">
+                <a href="../painel.php" style="text-decoration: none;">
                     <button type="button" class="btn-secondary">Cancelar</button>
                 </a>
-                <button type="submit" name="removeProduto" class="btn-primary">
+                <button type="submit" name="removerProduto" class="btn-primary">
                     <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i> Remover Produto
                 </button>
             </div>

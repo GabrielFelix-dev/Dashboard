@@ -56,7 +56,7 @@ if (isset($_POST['login'])) {
         if (password_verify($senha, $dados['senha'])) {
             $_SESSION['usuario_id'] = $dados['id_usuario']; // cria uma SESSION que vai receber $dados['id']
             $_SESSION['usuario_nome'] = $dados['nome'];
-            $_SESSION['sms'] = "Bem vindo!";
+            $_SESSION['sms'] = "Bem vindo, " . $dados['nome'] . "!";
             header("Location: pages/painel.php");
             exit();
         } else {
@@ -104,7 +104,7 @@ if (isset($_POST['cadastraProduto'])) {
 
 if (isset($_POST['editProduto'])) {
 
-    $id_produto = $_SESSION['id_produto'];
+    $id_produto = $_POST['id_produto'];
 
     $nome_produto = trim($_POST['nome_produto']);
     $preco = $_POST['preco'];
@@ -136,9 +136,9 @@ if (isset($_POST['editProduto'])) {
     }
 }
 
-if (isset($_POST['removeProduto'])) {
+if (isset($_POST['removerProduto'])) {
 
-    $id_produto = $_SESSION['id_produto'];
+    $id_produto = $_POST['id_produto'];
 
     $sql = "DELETE FROM produto WHERE id_produto = :id_produto";
 
@@ -187,20 +187,54 @@ if (isset($_POST['cadastrarAnotacao'])) {
 
 if (isset($_POST['removerAnotacao'])) {
 
-    $id_anotacao = $_SESSION['id_anotacao'];
+    $id_anotacao = $_POST['id_anotacao'];
 
     $sql = "DELETE FROM anotacoes WHERE id_anotacao = :id_anotacao";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->bindParam(':id_anotacao', $id_anotacao, PDO::PARAM_INT);
-    
+
     if ($stmt->execute()) {
         $_SESSION['sms'] = "Anotação removida com sucesso!";
         header("Location: pages/painel.php");
         exit();
     } else {
         $_SESSION['sms'] = "Erro ao remover!";
+    }
+}
+
+if (isset($_POST['editarAnotacao'])) {
+
+    $id_anotacao = $_POST['id_anotacao'];
+
+    $titulo = trim($_POST['titulo']);
+    $data_publicacao = $_POST['data_publicacao'];
+    $tipo = trim($_POST['tipo']);
+    $tag = trim($_POST['tag']);
+    $descricao = trim($_POST['descricao']);
+    $id_usuario = $_SESSION['usuario_id'];
+
+    $sql = "UPDATE anotacoes SET titulo = :titulo, data_publicacao = :data_publicacao, tipo = :tipo, tag = :tag, descricao = :descricao, id_usuario_fk = :id_usuario WHERE id_anotacao = :id_anotacao";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bindParam(':id_anotacao', $id_anotacao, PDO::PARAM_INT);
+    $stmt->bindParam(':titulo', $titulo);
+    $stmt->bindParam(':data_publicacao', $data_publicacao);
+    $stmt->bindParam(':tipo', $tipo);
+    $stmt->bindParam(':tag', $tag);
+    $stmt->bindParam(':descricao', $descricao);
+    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        $_SESSION['sms'] = "Anotação editada com sucesso!";
+        header("Location: pages/painel.php");
+        exit();
+    } else {
+        $_SESSION['sms'] = "Erro ao editar anotação!";
+        header("Location: pages/painel.php");
+        exit();
     }
 }
 

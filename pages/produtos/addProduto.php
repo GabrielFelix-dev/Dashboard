@@ -1,13 +1,6 @@
 <?php
-require '../conn.php';
-include '../auth.php';
-
-// if (isset($_SESSION['usuario_id'])) {
-//     $_SESSION['sms'] =  "O ID do usuário logado é: " . $_SESSION['usuario_id'];
-// } else {
-//     $_SESSION['sms'] =  "Sem id" . $_SESSION['usuario_id'];
-// }
-
+require('../../conn.php');
+require('../../auth.php');
 ?>
 
 <!DOCTYPE html>
@@ -21,21 +14,21 @@ include '../auth.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico">
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="../assets/css/add.css">
-    <link rel="stylesheet" href="../assets/css/sms.css">
+    <link rel="stylesheet" href="../../assets/css/add.css">
+    <link rel="stylesheet" href="../../assets/css/sms.css">
 
 </head>
 
 <body>
-    <?php include 'sms.php' ?>
+    <?php include '../sms.php' ?>
 
     <main class="main-container">
 
         <header class="page-header">
-            <a href="painel.php">
+            <a href="../painel.php">
                 <button class="btn-icon-text">
                     <i data-lucide="arrow-left"></i> Voltar para Produtos
                 </button>
@@ -44,7 +37,7 @@ include '../auth.php';
             <h1 class="page-title">Adicionar Novo Produto</h1>
         </header>
 
-        <form class="product-form" action="../actions.php" enctype="multipart/form-data" method="POST">
+        <form class="product-form" action="../../actions.php" enctype="multipart/form-data" method="POST">
 
             <div class="form-grid">
 
@@ -54,7 +47,7 @@ include '../auth.php';
                     <div class="upload-area">
                         <i data-lucide="image-plus"></i>
                         <span>Arraste uma imagem ou clique para fazer upload</span>
-                        
+
                     </div>
                 </div>
 
@@ -101,7 +94,7 @@ include '../auth.php';
 
             <!-- botões cancelar e cadastra -->
             <div class="form-actions">
-                <a href="painel.php">
+                <a href="../../painel.php">
                     <button type="button" class="btn-secondary">Cancelar</button>
                 </a>
                 <button type="submit" name="cadastraProduto" class="btn-primary">

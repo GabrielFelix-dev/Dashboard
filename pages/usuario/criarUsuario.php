@@ -1,7 +1,6 @@
 <?php 
 session_start();
-require '../conn.php';
-
+require('../../conn.php');
 
 ?>
 
@@ -19,7 +18,7 @@ require '../conn.php';
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="../assets/css/criarUsuario.css">
+    <link rel="stylesheet" href="../../assets/css/criarUsuario.css">
 </head>
 
 <body>
@@ -36,7 +35,7 @@ require '../conn.php';
             <p class="auth-subtitle">Faça seu cadastro para ter acesso ao painel.</p>
         </div>
 
-        <form action="../actions.php" method="POST">
+        <form action="../../actions.php" method="POST">
 
             <div class="form-group">
                 <label class="form-label" for="name">Nome Completo</label>
@@ -76,7 +75,7 @@ require '../conn.php';
         </form>
 
         <p class="switch-prompt">
-            Já tem uma conta? <a href="../index.php">Entrar</a>
+            Já tem uma conta? <a href="../../index.php">Entrar</a>
         </p>
 
     </main>

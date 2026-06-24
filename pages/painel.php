@@ -19,16 +19,13 @@ include '../auth.php';
 
     <link rel="stylesheet" href="../assets/css/painel.css">
     <link rel="stylesheet" href="../assets/css/sms.css">
-    <link rel="stylesheet" href="../assets/css/view.css">
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="../assets/js/painel.js" defer></script>
-    <script src="../assets/js/view.js" defer></script>
 
 </head>
 
 <body>
-
 
     <?php include 'sms.php' ?>
     <main class="main-app">
@@ -41,13 +38,13 @@ include '../auth.php';
             </div>
 
             <nav class="nav-links" id="navMenu">
-                <a href="#" target="_self">Produtos</a>
-                <a href="#" target="_self">Anotações</a>
+                <a href="#Produtos" target="_self">Produtos</a>
+                <a href="#Anotacoes" target="_self">Anotações</a>
             </nav>
 
             <div class="nav-actions">
                 <a href="#" class="login-btn"><i data-lucide="circle-user-round"></i> </a>
-                <a href="logout.php" class="start-btn">Sair</a>
+                <a href="usuario/logout.php" class="start-btn">Sair</a>
             </div>
         </header>
         <!-- FIM HEADER -->
@@ -63,7 +60,7 @@ include '../auth.php';
                 </div>
                 <!-- botões adicionar e filtar -->
                 <div class="action-buttons">
-                    <a href="add.php" class="btn-primary">
+                    <a href="produtos/addProduto.php" class="btn-primary">
                         <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Adicionar
                     </a>
                     <button class="btn-secondary">
@@ -73,7 +70,7 @@ include '../auth.php';
             </div>
 
             <!-- INICIO LISTAGEM DE PRODUTOS -->
-            <div class="product-list">
+            <div class="product-list" id="Produtos">
                 <?php
                 $usuario_id = $_SESSION['usuario_id'];
 
@@ -136,23 +133,17 @@ include '../auth.php';
                                 <div class="action-dropdown">
 
                                     <!-- BOTÃO VISUALIZAR -->
-                                    <button class="dropdown-item btn-view"
-                                        data-id="<?= $produtos['id_produto'] ?>"
-                                        data-nome="<?= htmlspecialchars($produtos['nome_produto']) ?>"
-                                        data-preco="<?= $produtos['preco'] ?>"
-                                        data-estoque="<?= $produtos['estoque'] ?>"
-                                        data-categoria="<?= htmlspecialchars($produtos['categoria']) ?>"
-                                        data-descricao="<?= htmlspecialchars($produtos['descricao']) ?>">
+                                    <a href="produtos/visualizarProduto.php?id_produto=<?= $produtos['id_produto'] ?>" class="dropdown-item">
                                         <i data-lucide="eye"></i> Visualizar
-                                    </button>
+                                    </a>
 
                                     <!-- BOTÃO EDITAR -->
-                                    <a href="edit.php?id_produto=<?= $produtos['id_produto'] ?>" class="dropdown-item">
+                                    <a href="produtos/editarProduto.php?id_produto=<?= $produtos['id_produto'] ?>" class="dropdown-item">
                                         <i data-lucide="edit"></i> Editar
                                     </a>
 
                                     <!-- BOTÃO REMOVER -->
-                                    <a href="remove.php?id_produto=<?= $produtos['id_produto'] ?>" class="dropdown-item danger">
+                                    <a href="produtos/removerProduto.php?id_produto=<?= $produtos['id_produto'] ?>" class="dropdown-item danger">
                                         <i data-lucide="trash-2"></i> Remover
                                     </a>
 
@@ -213,7 +204,7 @@ include '../auth.php';
 
 
             <!-- INICIO ANOTAÇÕES -->
-            <div class="notes-area">
+            <div class="notes-area" id="Anotacoes">
                 <!-- toobar -->
                 <div class="toolbar">
                     <!-- pesquisa -->
@@ -264,11 +255,23 @@ include '../auth.php';
                                     <div class="action-menu-wrapper">
                                         <button class="btn-icon action-toggle"><i data-lucide="more-horizontal"></i></button>
                                         <div class="action-dropdown">
-                                            <button class="dropdown-item"><i data-lucide="edit"></i> Editar</button>
+
+                                            
+                                            <!-- Visualizar -->
+                                            <a href="anotacoes/visualizarAnotacao.php?id_anotacao=<?= $anotacao['id_anotacao'] ?>" style="text-decoration: none;">
+                                                <button class="dropdown-item"><i data-lucide="eye"></i> Visualizar</button>
+                                            </a>
+
+                                            <!-- EDITAR -->
+                                            <a href="anotacoes/editarAnotacao.php?id_anotacao=<?= $anotacao['id_anotacao'] ?>" style="text-decoration: none;">
+                                                <button class="dropdown-item"><i data-lucide="edit"></i> Editar</button>
+                                            </a>
+
                                             <!-- REMOVER -->
-                                            <a href="removeAnotacao.php?id_anotacao=<?= $anotacao['id_anotacao'] ?>" style="text-decoration: none;">
+                                            <a href="anotacoes/removeAnotacao.php?id_anotacao=<?= $anotacao['id_anotacao'] ?>" style="text-decoration: none;">
                                                 <button class="dropdown-item danger"><i data-lucide="trash-2"></i> Excluir</button>
                                             </a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -301,7 +304,6 @@ include '../auth.php';
 
     </main>
 
-    <?php include 'view.php'; ?>
 
 </body>
 
