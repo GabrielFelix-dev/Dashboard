@@ -1,7 +1,7 @@
 <?php 
 
-require '../conn.php';
-include '../auth.php';
+require('../../conn.php');
+require('../../auth.php');
 
 ?>
 
@@ -19,22 +19,22 @@ include '../auth.php';
     
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <link rel="stylesheet" href="../assets/css/add.css">
-    <link rel="stylesheet" href="../assets/css/sms.css"></head>
+    <link rel="stylesheet" href="../../assets/css/add.css">
+    <link rel="stylesheet" href="../../assets/css/sms.css"></head>
 
 <body>
 
     <main class="main-container">
         
         <header class="page-header">
-            <a href="painel.php" class="btn-icon-text" style="text-decoration: none;">
+            <a href="../painel.php" class="btn-icon-text" style="text-decoration: none;">
                 <i data-lucide="arrow-left"></i> Voltar para Anotações
             </a>
             <h1 class="page-title">Criar Nova Anotação</h1>
         </header>
 
-        <form class="product-form" action="../actions.php" method="POST">
-            
+        <form class="product-form" action="../../actions.php" method="POST">
+
             <div class="form-section">
                 
                 <div class="form-group">
@@ -45,7 +45,7 @@ include '../auth.php';
                 <div class="form-row-3">
                     
                     <div class="form-group">
-                        <label class="form-label" for="dataPublicacao">Data de Publicação</label>
+                        <label class="form-label" for="dataPublicacao">Data</label>
                         <input type="date" id="dataPublicacao" name="data_publicacao" class="form-input" required>
                     </div>
                     
@@ -75,7 +75,6 @@ include '../auth.php';
             </div>
 
             <div class="form-actions">
-                <button type="button" class="btn-secondary">Cancelar</button>
                 <button type="submit" name="cadastrarAnotacao" class="btn-primary">
                     <i data-lucide="save" style="width: 16px; height: 16px;"></i> Salvar Anotação
                 </button>

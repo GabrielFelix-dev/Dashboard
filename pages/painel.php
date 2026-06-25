@@ -215,7 +215,7 @@ include '../auth.php';
                     </div>
                     <!-- Adicionar e filtro -->
                     <div class="action-buttons">
-                        <a href="addAnotacao.php">
+                        <a href="anotacoes/addAnotacao.php">
                             <button class="btn-primary">
                                 <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Nova Anotação
                             </button>

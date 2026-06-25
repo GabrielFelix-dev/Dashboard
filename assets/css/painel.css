@@ -630,6 +630,7 @@ body {
     border-radius: 9999px;
 }
 
+/* Cores das Etiquetas */
 .tag-gray {
     background-color: var(--bg-main, #F3F3F1);
     color: var(--text-secondary, #6b7280);

@@ -57,6 +57,8 @@ require('../../auth.php');
                 if (count($anotacoes) > 0) {
                     foreach ($anotacoes as $anotacao):
                 ?>
+                        <input type="hidden" name="id_anotacao" value="<?= $anotacao['id_anotacao'] ?>">
+                        
                         <div class="form-group">
                             <label class="form-label" for="titulo">Título da Anotação</label>
                             <input type="text" id="titulo" name="titulo" class="form-input" value="<?= htmlspecialchars($anotacao['titulo']) ?>" readonly>
@@ -110,7 +112,6 @@ require('../../auth.php');
 
     <script>
         lucide.createIcons();
-        
     </script>
 </body>
 
