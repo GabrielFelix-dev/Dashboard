@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';
-$dbname = 'dashboard';
-$user = 'root';
-$pass = 'biel310107';
+$dbname = ''; // Nome do banco de dados
+$user = ''; // Nome de usuário do banco de dados
+$pass = ''; // Senha do banco de dados
 
 try {
     // DSN (Data Source Name)
