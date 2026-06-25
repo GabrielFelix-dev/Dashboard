@@ -114,6 +114,7 @@ require('../../auth.php');
 
     <script>
         lucide.createIcons();
+        
     </script>
 </body>
 
