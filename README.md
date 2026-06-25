@@ -29,6 +29,10 @@ Dashboard/
     └── sms.php         # Funcionalidade de SMS
 ```
 
+## Tecnologias utilizadas
+- PDO (PHP Data Objects): Camada de abstração utilizada para a comunicação com o banco de dados. A implementação foi estruturada obrigatoriamente com Prepared Statements (instruções preparadas), garantindo proteção nativa contra ataques de SQL Injection.
+- MySQL: Sistema de Gestão de Base de Dados (SGBD) escolhido para assegurar a persistência, integridade referencial e consistência dos dados armazenados.
+
 ## Requisitos do Sistema
 - Servidor Web (Apache, Nginx ou soluções locais como XAMPP, WAMP, Laragon)
 - PHP (versão 7.x ou superior recomendada)
@@ -36,6 +40,10 @@ Dashboard/
 
 ## Como Instalar e Executar
 1. Coloque a pasta `Dashboard` no diretório público do seu servidor web (ex: `htdocs` no XAMPP ou `/var/www/html/` no Linux).
-2. Configure o banco de dados e importe as tabelas necessárias (database.sql).
+2. Configure o banco de dados e importe as tabelas necessárias (`database.sql`).
 3. Abra o arquivo `conn.php` e edite as credenciais (`hostname`, `username`, `password`, `database`) para corresponder ao seu banco de dados local.
 4. Acesse o sistema pelo navegador através da URL: `http://localhost/Dashboard/`.
+
+## Mudanças Futuras
+- **Integrar com IA:** Implementação de recursos inteligentes para análise de dados ou automação no painel.
+- **Sistema de Filtro para Buscas:** Adição de filtros avançados nas listagens de produtos e anotações para otimizar a busca de informações.
