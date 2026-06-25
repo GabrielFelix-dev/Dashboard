@@ -1,6 +1,4 @@
-/* =========================================
-   VARIÁVEIS DE COR (TEMA CLARO ÚNICO)
-   ========================================= */
+
 :root {
     --bg-outer: #d6d3d1;
     --bg-main: #F3F3F1;
@@ -30,9 +28,9 @@ body {
     color: var(--text-primary);
 }
 
-/* =========================================
+/* 
    CONTAINER PRINCIPAL
-   ========================================= */
+ */
 .main-container {
     background-color: var(--bg-card);
     width: 100%;
@@ -43,9 +41,9 @@ body {
     border: 1px solid var(--border-color);
 }
 
-/* =========================================
+/*
    CABEÇALHO DA PÁGINA
-   ========================================= */
+ */
 .page-header {
     display: flex;
     flex-direction: column;
@@ -85,9 +83,9 @@ body {
     color: var(--text-primary);
 }
 
-/* =========================================
+/* 
    FORMULÁRIO & GRID
-   ========================================= */
+ */
 .product-form {
     display: flex;
     flex-direction: column;
@@ -287,6 +285,7 @@ select.form-input {
     .form-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
+    
     }
 
     .form-row {

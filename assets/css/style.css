@@ -216,7 +216,6 @@ a {
     text-decoration: underline;
 }
 
-/* Botão de Submit */
 .btn-submit {
     width: 100%;
     display: flex;
@@ -269,5 +268,6 @@ a {
     .theme-toggle-wrapper {
         top: 1rem;
         right: 1rem;
+        
     }
 }

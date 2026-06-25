@@ -464,9 +464,9 @@ body {
     padding-bottom: 20px;
 }
 
-/* =========================================
+/* 
    MENU FLUTUANTE (DROPDOWN DE AÇÕES)
-   ========================================= */
+ */
 .action-menu-wrapper {
     position: relative;
     /* Serve de âncora para o menu flutuante */
@@ -535,14 +535,12 @@ body {
 /* Estilo específico para o botão de Remover */
 .dropdown-item.danger:hover {
     background-color: #fee2e2;
-    /* Fundo vermelhinho claro */
     color: #dc2626;
-    /* Texto vermelho */
 }
 
-/* =========================================
+/* 
    ANOTAÇÕES (NOTES GRID & CARDS)
-   ========================================= */
+ */
 
 .notes-area {
     display: flex;
@@ -551,17 +549,13 @@ body {
     width: 100%;
 }
 
-/* O Grid que organiza os cards */
 .notes-grid {
     display: grid;
-    /* Faz os cards se adaptarem, com tamanho mínimo de 300px */
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
     align-items: start;
-    /* Impede que os cards estiquem verticalmente sem necessidade */
 }
 
-/* O Card Individual */
 .note-card {
     background-color: var(--bg-card, #ffffff);
     border: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
@@ -578,7 +572,6 @@ body {
     box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
-/* Cabeçalho do Card (Título + Botão de Opções) */
 .note-header {
     display: flex;
     justify-content: space-between;
@@ -608,7 +601,6 @@ body {
     color: var(--text-tertiary, #9ca3af);
 }
 
-/* Corpo do texto da anotação */
 .note-body {
     font-size: 0.9rem;
     color: var(--text-secondary, #6b7280);
@@ -620,7 +612,6 @@ body {
     overflow: hidden;
 }
 
-/* Sistema de Etiquetas (Tags) no rodapé do card */
 .note-tags {
     display: flex;
     flex-wrap: wrap;
@@ -639,7 +630,6 @@ body {
     border-radius: 9999px;
 }
 
-/* Cores das Etiquetas */
 .tag-gray {
     background-color: var(--bg-main, #F3F3F1);
     color: var(--text-secondary, #6b7280);

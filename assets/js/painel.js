@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdown.classList.toggle('show');
         });
     });
+    
 
     // Fecha o menu se o usuário clicar em qualquer outro lugar da tela
     document.addEventListener('click', (event) => {

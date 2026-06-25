@@ -1,6 +1,4 @@
-/* =========================================
-   VARIÁVEIS DE COR (TEMA CLARO ÚNICO)
-   ========================================= */
+
 :root {
     --bg-outer: #d6d3d1;
     --bg-main: #F3F3F1;
@@ -12,7 +10,6 @@
     --font-inter: 'Inter', sans-serif;
 }
 
-/* Reset Geral */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,7 +27,7 @@ body {
     color: var(--text-primary);
 }
 
-/* Transição global para botões e inputs */
+
 .auth-card,
 input,
 .btn-submit,
@@ -38,9 +35,9 @@ a {
     transition: all 0.3s ease;
 }
 
-/* =========================================
+/* 
    CONTAINER DE AUTENTICAÇÃO
-   ========================================= */
+*/
 .auth-card {
     background-color: var(--bg-card);
     width: 100%;
@@ -97,9 +94,9 @@ a {
     line-height: 1.5;
 }
 
-/* =========================================
+/* 
    FORMULÁRIO
-   ========================================= */
+ */
 .form-group {
     margin-bottom: 1.25rem;
     display: flex;
@@ -217,6 +214,7 @@ a {
     margin-top: 2rem;
     font-size: 0.875rem;
     color: var(--text-secondary);
+    
 }
 
 .switch-prompt a {
