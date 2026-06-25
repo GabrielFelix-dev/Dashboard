@@ -92,11 +92,8 @@ require('../../auth.php');
                 </div>
             </div>
 
-            <!-- botões cancelar e cadastra -->
+            <!-- botões cadastra -->
             <div class="form-actions">
-                <a href="../../painel.php">
-                    <button type="button" class="btn-secondary">Cancelar</button>
-                </a>
                 <button type="submit" name="cadastraProduto" class="btn-primary">
                     <i data-lucide="save" style="width: 16px; height: 16px;"></i> Cadastrar Produto
                 </button>

@@ -1,7 +1,6 @@
 <?php
 require('../../conn.php');
 require('../../auth.php');
-
 ?>
 
 <!DOCTYPE html>
