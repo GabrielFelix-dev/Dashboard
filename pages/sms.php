@@ -11,6 +11,7 @@
 
 		<button type="button" class="toast-close" aria-label="Close" onclick="document.getElementById('systemToast').style.display='none'">
 			<i data-lucide="x"></i>
+			
 		</button>
 	</div>
 

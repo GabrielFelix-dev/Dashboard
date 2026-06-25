@@ -237,7 +237,7 @@ if (isset($_POST['editarAnotacao'])) {
         exit();
     }
 }
-
+// TESTE
 // --- INÍCIO DO MODO DEBUG ---
 //echo "<pre>"; // A tag <pre> do HTML deixa o texto formatado e fácil de ler
 //var_dump($_POST); // Mostra tudo o que veio do formulário
